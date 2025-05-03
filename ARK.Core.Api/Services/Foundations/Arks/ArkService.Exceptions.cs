@@ -7,23 +7,27 @@ using System.Threading.Tasks;
 using ARK.Core.Api.Brokers.Loggings;
 using ARK.Core.Api.Brokers.Storages;
 using ARK.Core.Api.Models.ARKs;
+using Microsoft.Data.SqlClient;
 
 namespace ARK.Core.Api.Services.Foundations.Arks
 {
     internal partial class ArkService : IArkService
     {
-        private readonly IStorageBroker storageBroker;
-        private readonly ILoggingBroker loggingBroker;
+        private delegate ValueTask<IQueryable<Ark>> ReturningArksFunction();
 
-        internal ArkService(
-            IStorageBroker storageBroker,
-            ILoggingBroker loggingBroker)
+        private async ValueTask<IQueryable<Ark>> TryCatch(
+            ReturningArksFunction returningArksFunction)
         {
-            this.storageBroker = storageBroker;
-            this.loggingBroker = loggingBroker;
-        }
+            try
+            {
+                await returningArksFunction();
+            }
+            catch (SqlException sqlException)
+            {
+                throw sqlException;
+            }
 
-        public async ValueTask<IQueryable<Ark>> RetrieveAllArksAsync() =>
-            await this.storageBroker.SelectAllArksAsync();
+            return null;
+        }
     }
 }

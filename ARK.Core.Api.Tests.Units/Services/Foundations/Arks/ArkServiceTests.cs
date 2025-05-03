@@ -4,12 +4,16 @@
 
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using ARK.Core.Api.Brokers.Loggings;
 using ARK.Core.Api.Brokers.Storages;
 using ARK.Core.Api.Models.ARKs;
 using ARK.Core.Api.Services.Foundations.Arks;
+using Microsoft.Data.SqlClient;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xeptions;
 
 namespace ARK.Core.Api.Tests.Units.Services.Foundations.Arks
 {
@@ -37,6 +41,12 @@ namespace ARK.Core.Api.Tests.Units.Services.Foundations.Arks
             return CreateArkFiller().Create(count: GetRandomNumber())
                 .AsQueryable();
         }
+
+        private SqlException CreateSqlException() =>
+            (SqlException)RuntimeHelpers.GetUninitializedObject(typeof(SqlException));
+
+        private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+            actualException => actualException.SameExceptionAs(expectedException);
 
         private int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
