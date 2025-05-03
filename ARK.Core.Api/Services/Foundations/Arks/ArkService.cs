@@ -23,7 +23,7 @@ namespace ARK.Core.Api.Services.Foundations.Arks
             this.loggingBroker = loggingBroker;
         }
 
-        public ValueTask<IQueryable<Ark>> RetrieveAllArksAsync() =>
-            throw new System.NotImplementedException();
+        public async ValueTask<IQueryable<Ark>> RetrieveAllArksAsync() =>
+            await this.storageBroker.SelectAllArksAsync();
     }
 }
