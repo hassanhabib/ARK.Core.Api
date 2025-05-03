@@ -4,10 +4,10 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using ARK.Core.Api.Brokers.Loggings;
-using ARK.Core.Api.Brokers.Storages;
 using ARK.Core.Api.Models.ARKs;
+using ARK.Core.Api.Models.ARKs.Exceptions;
 using Microsoft.Data.SqlClient;
+using Xeptions;
 
 namespace ARK.Core.Api.Services.Foundations.Arks
 {
@@ -20,14 +20,32 @@ namespace ARK.Core.Api.Services.Foundations.Arks
         {
             try
             {
-                await returningArksFunction();
+                return await returningArksFunction();
             }
             catch (SqlException sqlException)
             {
-                throw sqlException;
-            }
+                var failedArkStorageException =
+                    new FailedArkStorageException(
+                        message: "Failed Ark storage error occurred, contact support.",
+                        sqlException);
 
-            return null;
+                throw await CreateAndLogDependencyException(
+                    failedArkStorageException);
+            };
+        }
+
+        private async ValueTask<ArkDependencyException> CreateAndLogDependencyException(
+            Xeption exception)
+        {
+            var arkDependencyException =
+                new ArkDependencyException(
+                    "Ark dependency error occurred, contact support.",
+                    exception);
+
+            await this.loggingBroker.LogCriticalAsync(
+                arkDependencyException);
+
+            return arkDependencyException;
         }
     }
 }

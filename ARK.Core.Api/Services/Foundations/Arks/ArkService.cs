@@ -23,7 +23,10 @@ namespace ARK.Core.Api.Services.Foundations.Arks
             this.loggingBroker = loggingBroker;
         }
 
-        public async ValueTask<IQueryable<Ark>> RetrieveAllArksAsync() =>
-            await this.storageBroker.SelectAllArksAsync();
+        public ValueTask<IQueryable<Ark>> RetrieveAllArksAsync() => 
+        TryCatch(async () =>
+        {
+            return await this.storageBroker.SelectAllArksAsync();
+        });
     }
 }
