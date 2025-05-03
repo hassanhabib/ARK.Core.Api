@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ARK.Core.Api.Brokers.Loggings
 {
-    public class LoggingBroker : ILoggingBroker
+    internal class LoggingBroker : ILoggingBroker
     {
         private readonly ILogger<LoggingBroker> logger;
 

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace ARK.Core.Api.Brokers.Storages
 {
-    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
+    internal partial class StorageBroker : EFxceptionsContext, IStorageBroker
     {
         private readonly IConfiguration configuration;
 

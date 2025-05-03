@@ -8,7 +8,7 @@ using ARK.Core.Api.Models.ARKs;
 
 namespace ARK.Core.Api.Brokers.Storages
 {
-    public partial interface IStorageBroker
+    internal partial interface IStorageBroker
     {
         ValueTask<IQueryable<Ark>> SelectAllArksAsync();
     }
