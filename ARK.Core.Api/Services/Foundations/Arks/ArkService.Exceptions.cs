@@ -2,6 +2,7 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using ARK.Core.Api.Models.ARKs;
@@ -29,12 +30,22 @@ namespace ARK.Core.Api.Services.Foundations.Arks
                         message: "Failed Ark storage error occurred, contact support.",
                         sqlException);
 
-                throw await CreateAndLogDependencyException(
+                throw await CreateAndLogDependencyExceptionAsync(
                     failedArkStorageException);
-            };
+            }
+            catch (Exception exception)
+            {
+                var failedArkServiceException =
+                    new FailedArkServiceException(
+                        message: "Failed Ark service error occurred, contact support.",
+                        exception);
+
+                throw await CreateAndLogServiceExceptionAsync(
+                    failedArkServiceException);
+            }; ;
         }
 
-        private async ValueTask<ArkDependencyException> CreateAndLogDependencyException(
+        private async ValueTask<ArkDependencyException> CreateAndLogDependencyExceptionAsync(
             Xeption exception)
         {
             var arkDependencyException =
@@ -46,6 +57,20 @@ namespace ARK.Core.Api.Services.Foundations.Arks
                 arkDependencyException);
 
             return arkDependencyException;
+        }
+
+        private async ValueTask<ArkServiceException> CreateAndLogServiceExceptionAsync(
+            Xeption exception)
+        {
+            var arkServiceException =
+                new ArkServiceException(
+                    "Ark service error occurred, contact support.",
+                    exception);
+
+            await this.loggingBroker.LogErrorAsync(
+                arkServiceException);
+
+            return arkServiceException;
         }
     }
 }

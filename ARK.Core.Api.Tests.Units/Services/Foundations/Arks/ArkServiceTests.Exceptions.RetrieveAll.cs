@@ -97,7 +97,7 @@ namespace ARK.Core.Api.Tests.Units.Services.Foundations.Arks
                     Times.Once);
 
             this.loggingBrokerMock.Verify(broker =>
-                broker.LogCriticalAsync(It.Is(
+                broker.LogErrorAsync(It.Is(
                     SameExceptionAs(expectedArkServiceException))),
                         Times.Once);
 
