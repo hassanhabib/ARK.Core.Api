@@ -5,6 +5,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ARK.Core.Api.Models.ARKs;
+using ARK.Core.Api.Models.ARKs.Exceptions;
 using ARK.Core.Api.Services.Foundations.Arks;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
@@ -23,10 +24,21 @@ namespace ARK.Core.Api.Controllers
         [HttpGet]
         public async ValueTask<ActionResult<IQueryable<Ark>>> GetAllArksAsync()
         {
-            IQueryable<Ark> retrievedArks =
-                await this.arkService.RetrieveAllArksAsync();
+            try
+            {
+                IQueryable<Ark> retrievedArks =
+                    await this.arkService.RetrieveAllArksAsync();
 
-            return Ok(retrievedArks);
+                return Ok(retrievedArks);
+            }
+            catch (ArkDependencyException arkDependencyException)
+            {
+                return InternalServerError(arkDependencyException);
+            }
+            catch (ArkServiceException arkServiceException)
+            {
+                return InternalServerError(arkServiceException);
+            }
         }
     }
 }
