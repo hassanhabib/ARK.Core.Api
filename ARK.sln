@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARK.Core.Api", "ARK.Core.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARK.Core.Api.Tests.Units", "ARK.Core.Api.Tests.Units\ARK.Core.Api.Tests.Units.csproj", "{969DA894-F9B5-4AA9-9743-06E0FEB44819}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARK.Core.Infrastructure.Builds", "ARK.Core.Infrastructure.Builds\ARK.Core.Infrastructure.Builds.csproj", "{7E8F360E-BD4F-438D-886E-318F3EBCB8FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{969DA894-F9B5-4AA9-9743-06E0FEB44819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{969DA894-F9B5-4AA9-9743-06E0FEB44819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{969DA894-F9B5-4AA9-9743-06E0FEB44819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E8F360E-BD4F-438D-886E-318F3EBCB8FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E8F360E-BD4F-438D-886E-318F3EBCB8FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E8F360E-BD4F-438D-886E-318F3EBCB8FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E8F360E-BD4F-438D-886E-318F3EBCB8FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
