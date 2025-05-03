@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------------
 
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 using ARK.Core.Api.Models.ARKs;
 using ARK.Core.Api.Services.Foundations.Arks;
@@ -22,7 +21,12 @@ namespace ARK.Core.Api.Controllers
             this.arkService = arkService;
 
         [HttpGet]
-        public async ValueTask<ActionResult<IQueryable<Ark>>> GetAllArksAsync() =>
-            NotImplemented("Endpoint not implemented");
+        public async ValueTask<ActionResult<IQueryable<Ark>>> GetAllArksAsync()
+        {
+            IQueryable<Ark> retrievedArks =
+                await this.arkService.RetrieveAllArksAsync();
+
+            return Ok(retrievedArks);
+        }
     }
 }
