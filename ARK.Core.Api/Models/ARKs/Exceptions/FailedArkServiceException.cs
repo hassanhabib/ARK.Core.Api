@@ -2,14 +2,14 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
-using System.Linq;
-using System.Threading.Tasks;
-using ARK.Core.Api.Models.ARKs;
+using System;
+using Xeptions;
 
-namespace ARK.Core.Api.Brokers.Storages
+namespace ARK.Core.Api.Models.ARKs.Exceptions
 {
-    internal partial interface IStorageBroker
+    public class FailedArkServiceException : Xeption
     {
-        ValueTask<IQueryable<Ark>> SelectAllArksAsync();
+        public FailedArkServiceException(string message, Exception innerException)
+             : base(message, innerException) { }
     }
 }

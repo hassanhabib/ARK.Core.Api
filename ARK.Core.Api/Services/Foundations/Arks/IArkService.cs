@@ -5,15 +5,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using ARK.Core.Api.Models.ARKs;
-using Microsoft.EntityFrameworkCore;
 
-namespace ARK.Core.Api.Brokers.Storages
+namespace ARK.Core.Api.Services.Foundations.Arks
 {
-    internal partial class StorageBroker
+    public interface IArkService
     {
-        public DbSet<Ark> Arks { get; set; }
-
-        public async ValueTask<IQueryable<Ark>> SelectAllArksAsync() =>
-            await this.SelectAll<Ark>();
+        ValueTask<IQueryable<Ark>> RetrieveAllArksAsync();
     }
 }

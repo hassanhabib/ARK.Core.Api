@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ARK.Core.Api.Brokers.Loggings
 {
-    public interface ILoggingBroker
+    internal interface ILoggingBroker
     {
         ValueTask LogInformationAsync(string message);
         ValueTask LogTraceAsync(string message);

@@ -4,6 +4,7 @@
 
 using ARK.Core.Api.Brokers.Loggings;
 using ARK.Core.Api.Brokers.Storages;
+using ARK.Core.Api.Services.Foundations.Arks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -29,6 +30,10 @@ namespace ARK.Core.Api
             webApplicationBuilder.Services.AddTransient<
                 IStorageBroker,
                 StorageBroker>();
+
+            webApplicationBuilder.Services.AddTransient<
+                IArkService,
+                ArkService>();
 
             WebApplication webApplication =
                 webApplicationBuilder.Build();
