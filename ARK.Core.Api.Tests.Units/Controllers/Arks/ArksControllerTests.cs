@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using ARK.Core.Api.Controllers;
 using ARK.Core.Api.Models.ARKs;
+using ARK.Core.Api.Models.ARKs.Exceptions;
 using ARK.Core.Api.Services.Foundations.Arks;
 using Moq;
 using RESTFulSense.Controllers;
@@ -36,10 +37,29 @@ namespace ARK.Core.Api.Tests.Units.Controllers.Arks
                 .AsQueryable();
         }
 
+        public static TheoryData<Xeption> ServerException()
+        {
+            string someMessage = GetRandomMessage();
+            var someInnerException = new Xeption(someMessage);
+
+            return new TheoryData<Xeption>
+            {
+                new ArkDependencyException(
+                    message: someMessage,
+                    innerException: someInnerException),
+
+                new ArkServiceException(
+                    message: someMessage,
+                    innerException: someInnerException)
+            };
+        }
+        private static string GetRandomMessage() =>
+            new MnemonicString(wordCount: GetRandomNumber()).GetValue();
+
         private static Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
 
-        private int GetRandomNumber() =>
+        private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 10).GetValue();
 
         private Filler<Ark> CreateArkFiller()
