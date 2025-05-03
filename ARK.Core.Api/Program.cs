@@ -2,6 +2,8 @@
 // Copyright (c) The Standard Organization, a coalition of the Good-Hearted Engineers 
 // ----------------------------------------------------------------------------------
 
+using ARK.Core.Api.Brokers.Loggings;
+using ARK.Core.Api.Brokers.Storages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,16 @@ namespace ARK.Core.Api
 
             webApplicationBuilder.Services.AddControllers();
             webApplicationBuilder.Services.AddOpenApi();
+            webApplicationBuilder.Services.AddLogging();
+            webApplicationBuilder.Services.AddDbContext<StorageBroker>();
+
+            webApplicationBuilder.Services.AddTransient<
+                ILoggingBroker,
+                LoggingBroker>();
+
+            webApplicationBuilder.Services.AddTransient<
+                IStorageBroker,
+                StorageBroker>();
 
             WebApplication webApplication =
                 webApplicationBuilder.Build();
