@@ -1,0 +1,10 @@
+@ARK.Core.Api_HostAddress = https://localhost:7067
+
+GET {{ARK.Core.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{ARK.Core.Api_HostAddress}}/api/home
+
+###
