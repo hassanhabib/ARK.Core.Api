@@ -31,11 +31,7 @@ namespace ARK.Core.Api.Brokers.Storages
                 connectionString);
         }
 
-        private async ValueTask<IQueryable<T>> SelectAll<T>() where T : class
-        {
-            var broker = new StorageBroker(this.configuration);
-
-            return broker.Set<T>();
-        }
+        private async ValueTask<IQueryable<T>> SelectAll<T>() where T : class =>
+            this.Set<T>();
     }
 }
