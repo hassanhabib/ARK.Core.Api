@@ -15,7 +15,7 @@ namespace ARK.Core.Api.Services.Foundations.Arks
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
 
-        internal ArkService(
+        public ArkService(
             IStorageBroker storageBroker,
             ILoggingBroker loggingBroker)
         {
