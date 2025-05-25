@@ -13,7 +13,10 @@ namespace ARK.Core.Api.Brokers.Storages
     {
         public DbSet<Ark> Arks { get; set; }
 
+        public async ValueTask<Ark> InsertArkAsync(Ark ark) =>
+            await InsertAsync(ark);
+
         public async ValueTask<IQueryable<Ark>> SelectAllArksAsync() =>
-            await this.SelectAll<Ark>();
+            await SelectAll<Ark>();
     }
 }
