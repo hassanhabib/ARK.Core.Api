@@ -10,6 +10,7 @@ namespace ARK.Core.Api.Brokers.Storages
 {
     internal partial interface IStorageBroker
     {
+        ValueTask<Ark> InsertArkAsync(Ark ark);
         ValueTask<IQueryable<Ark>> SelectAllArksAsync();
     }
 }
